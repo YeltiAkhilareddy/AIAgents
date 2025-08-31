@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Update Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px #cccccc;
+        }
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #666666;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Ticket Update Notification</div>
+        
+        <div class="content">
+            <p>Dear <strong>{{ recipient_name }}</strong>,</p>
+
+            {% if is_assignment_changed and is_status_changed %}
+                <p>The following updates have been made to your ticket <strong>#{{ ticket_id }}</strong>:</p>
+                <ul>
+                    <li><strong>Status:</strong> {{ previous_status }} ➝ <strong>{{ status }}</strong></li>
+                    <li><strong>Assigned To:</strong> {{ previous_assigned_to }} ➝ <strong>{{ assigned_to }}</strong></li>
+                </ul>
+            {% elif is_status_changed %}
+                <p>The status of your ticket <strong>#{{ ticket_id }}</strong> has changed from <strong>{{ previous_status }}</strong> to <strong>{{ status }}</strong>.</p>
+            {% elif is_assignment_changed %}
+                <p>Your ticket <strong>#{{ ticket_id }}</strong> has been assigned to a new team:</p>
+                <ul>
+                    <li><strong>Previous Assignee:</strong> {{ previous_assigned_to }}</li>
+                    <li><strong>New Assignee:</strong> {{ assigned_to }}</li>
+                </ul>
+            {% endif %}
+
+            <p>If you have any questions, feel free to reach out.</p>
+        </div>
+
+        <div class="footer">
+            &copy; {{ current_year }} Your {{ company_name }} | All Rights Reserved
+        </div>
+    </div>
+</body>
+</html>
