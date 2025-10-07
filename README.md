@@ -1,143 +1,144 @@
 **🧠 AI-Powered Ticketing & Smart Data Processing – Project Documentation**
-**📌 Project Overview**
+The AI-Powered Ticketing System is designed to streamline IT service and customer support operations by leveraging Large Language Models (LLMs) to classify, analyze, and auto-resolve tickets.
+This system integrates Django as the backend framework with GPT-4.0-mini (or similar) to automate ticket triaging, generate resolutions, and assist support agents with knowledge-based insights.
 
-The AI-Powered Ticketing & Smart Data Processing project is designed to automate ticket management, customer queries, and compliance checks using a combination of LLMs (OpenAI, Groq LLaMA 3, Azure OpenAI) and Python-based backend automation. The system is built as a Django REST Framework API, supporting intelligent ticket assignment, SLA monitoring, and domain-specific processing of structured data (Excel/CSV) from S3.
+🧠 Key Features
 
-Unlike traditional rule-based ticketing systems, this project leverages AI for:
+🔹 AI-Powered Ticket Classification – Automatically identifies the ticket type and category using LLM-based text analysis.
 
-Understanding user queries
+🔹 Smart Resolution Suggestions – Suggests potential fixes or relevant KB articles using GPT-powered reasoning.
 
-Suggesting ticket assignments
+🔹 Context-Aware Response Generation – Generates user-friendly and technically accurate responses.
 
-Processing domain-specific data like pharma serial tracking and compliance issues
+🔹 Integrated Knowledge Base – Optionally connects to internal documentation or database to enhance LLM responses.
 
-Generating AI-assisted responses for internal teams
+🔹 Django REST API Ready – Provides structured APIs to handle ticket creation, updates, and AI interactions.
 
-The modular architecture ensures maintainability, scalability, and future enhancements like UI integration or multi-LLM orchestration.
+🔹 Extensible & Modular – Easy to integrate with existing service desks (like SAP, CSA, or custom ticketing portals).
 
-**🎯 Project Goals**
-
-Fully automated ticket handling and assignment using AI
-
-Intelligent processing of structured files from S3
-
-SLA breach notifications and proactive issue monitoring
-
-Flexibility to plug in multiple LLMs (OpenAI, Groq LLaMA, Azure)
-
-Transparent logging of AI and backend operations
-
-Modular, maintainable backend structure
-
-**🧱 System Architecture**
-
-The system follows a modular flow:
-
-API & Routing Layer: Handles REST endpoints for tickets, categories, modules, teams, and AI responses.
-
-Data & Ticket Models: Django models for tickets, assignments, teams, modules, and categories.
-
-LLM Layer: Communicates with OpenAI, Groq, or Azure APIs to:
-
-Generate AI responses
-
-Suggest ticket assignments
-
-Process compliance or industry-specific data
-
-Processing Layer: Handles:
-
-Ticket creation, patching, and retrieval
-
-File-based workflows (Excel/CSV from S3)
-
-Serial number tracking and validation
-
-SLA notifications
-
-Utils & Helpers: Encapsulates file handling, AI prompts, cleaning logic, and response post-processing.
-
-Logging & Audit: Tracks changes, AI decisions, and ticket assignments for traceability.
-
-**🔄 Core Workflows**
-1. Ticket Management
-
-Create Ticket: Users or AI can create tickets linked to modules, projects, and categories.
-
-Update Ticket: Status, assignment, or content updates are tracked and logged.
-
-Assign Ticket: AI selects the most suitable team based on ticket content.
-
-Retrieve Tickets: Single or bulk retrieval with nested assignment info.
-
-2. AI Response Handling
-
-Users can query AI to get responses for tickets, including suggested actions or solution previews.
-
-Chat history is maintained per user for future reference.
-
-AI responses are logged in ChatConvo for audit and traceability.
-
-3. File-Based Processing
-
-Pharma Serial Tracking: Users upload Excel files from S3, and AI helps track serial numbers.
-
-Compliance Check: AI extracts and analyzes structured data to generate compliance insights.
-
-Files are processed with validation checks and AI-guided extraction.
-
-4. SLA & Proactive Monitoring
-
-SLA breaches trigger notifications via automated background processes.
-
-Proactive issues from SAP OData are fetched, cleaned, and reported to stakeholders.
-
-**🤖 Why Use LLMs Here?**
-
-LLMs provide:
-
-Semantic understanding of ticket content
-
-Context-aware assignment to teams
-
-Intelligent responses for user queries
-
-Data interpretation in Excel/S3 files for domain-specific agents (compliance, pharma)
-
-Proactive suggestions for workflow optimization
-
-This allows the system to act as a smart AI assistant for ticketing and domain workflows.
-
-**📁 Project Components**
+🏗️ Tech Stack
 Component	Description
-Routes (urls.py)	REST API endpoints for tickets, modules, teams, categories, AI responses
-Views (views.py)	Core API logic, AI integration, file processing, ticket patching and assignment
-Models (models.py)	Database models: Ticket, TicketAssignment, Team, Module, Category, ChatConvo
-Serializers	Validation and transformation of data between models and API responses
-Utils (utils.py)	Helper functions for AI prompts, Excel handling, S3 access, serial tracking
-S3 Integration	File upload/download and presigned URLs
-AI/LLM Layer	Handles OpenAI/Groq/Azure calls for responses, assignments, and analysis
+Framework	Django 5.x
+Language	Python 3.10+
+AI Model	GPT-4.0-mini (via OpenAI API)
+Database	SQLite / PostgreSQL
+Frontend	Django Templates / React (optional)
+Environment	Virtualenv / Conda
+Version Control	Git & GitHub
+🧩 Folder Structure
+ai_ticketing_system/
+│
+├── ai_core/
+│   ├── __init__.py
+│   ├── ai_handler.py         # Core logic for AI model communication
+│   ├── prompt_manager.py     # Handles structured prompts
+│   ├── utils.py              # Helper functions
+│
+├── ticket_app/
+│   ├── models.py             # Ticket model definitions
+│   ├── views.py              # Django views for API endpoints
+│   ├── serializers.py        # API serializers
+│   ├── urls.py               # App-specific routes
+│
+├── project/
+│   ├── settings.py           # Django settings
+│   ├── urls.py               # Root URL configuration
+│
+├── manage.py                 # Django entry point
+├── requirements.txt          # Python dependencies
+└── README.md                 # Documentation (this file)
 
-**🔌 LLM Compatibility**
+⚙️ Installation & Setup
+1. Clone the Repository
+git clone https://github.com/yourusername/ai-ticketing-system.git
+cd ai-ticketing-system
 
-OpenAI – GPT-3.5 / GPT-4 for general ticketing responses and compliance insights
+2. Create Virtual Environment
+python -m venv venv
+source venv/bin/activate     # for Linux/Mac
+venv\Scripts\activate        # for Windows
 
-Groq LLaMA 3 – High-speed, open-weight LLM for domain-specific tasks
+3. Install Dependencies
+pip install -r requirements.txt
 
-Azure OpenAI – Secure enterprise-ready integration
+4. Set Up Environment Variables
 
-LLM choice is abstracted in utils and configurable via environment variables, enabling easy switching or ensemble strategies.
+Create a .env file in the project root and include the following:
 
-**🔍 Example Use Case**
+OPENAI_API_KEY=your_api_key_here
+DJANGO_SECRET_KEY=your_django_secret
+DEBUG=True
 
-A user submits a ticket regarding a pharma shipment discrepancy.
+5. Run Database Migrations
+python manage.py makemigrations
+python manage.py migrate
 
-AI analyzes the ticket content and suggests the appropriate team for assignment.
+6. Start the Development Server
+python manage.py runserver
 
-Serial tracking files are fetched from S3, validated, and processed using AI to locate the problematic serial numbers.
 
-Compliance agent reads uploaded Excel sheets, extracts data, and generates AI-guided insights.
+Then visit:
+👉 http://127.0.0.1:8000/
 
-SLA monitoring detects potential breaches and sends proactive notifications.
+🚀 Usage Flow
 
-User receives ticket updates, AI responses, and relevant data insights automatically.
+A user submits a new ticket via frontend or API.
+
+The backend captures the ticket description and metadata.
+
+The AI module (ai_handler.py) sends the text to GPT-4.0-mini for:
+
+Classification (category, urgency, department)
+
+Suggested resolution or next steps
+
+The AI response is stored and displayed in the dashboard.
+
+Agents can review, edit, or auto-close tickets based on confidence scores.
+
+🧪 Example API Request
+
+POST /api/tickets/analyze/
+
+{
+  "ticket_id": "TCK12345",
+  "subject": "SAP login failed due to expired certificate",
+  "description": "User unable to log in to SAP system due to certificate expiration error"
+}
+
+
+Response
+
+{
+  "category": "SAP - Authentication",
+  "priority": "High",
+  "suggested_resolution": "Renew the user’s certificate using SAP Logon Pad configuration.",
+  "confidence": 0.92
+}
+
+📘 File Descriptions
+File	Purpose
+ai_handler.py	Handles AI API calls and model responses
+prompt_manager.py	Builds structured prompts for different ticket contexts
+views.py	Defines Django REST API endpoints
+models.py	Database schema for ticket data
+utils.py	Utility helpers for data formatting, logging, etc.
+🧰 Example Prompt (Used Internally)
+You are an IT support assistant specialized in SAP and enterprise systems.
+Analyze the following ticket and suggest:
+1. Category
+2. Root cause
+3. Recommended fix
+4. Confidence score
+
+🧑‍💻 Future Enhancements
+
+Integration with Jira, ServiceNow, or SAP Solution Manager
+
+Support for multilingual tickets
+
+Context-based learning from resolved tickets
+
+Automated email response generation
+
+Embedding-based knowledge retrieval system
