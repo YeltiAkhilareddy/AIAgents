@@ -51,7 +51,6 @@ ai_ticketing_system/
 ⚙️ Installation & Setup
 1. Clone the Repository
 git clone [(https://github.com/YeltiAkhilareddy/AIAgents.git)]
-cd ai-ticketing-system
 
 2. Create Virtual Environment
 python -m venv venv
