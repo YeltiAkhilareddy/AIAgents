@@ -50,7 +50,7 @@ ai_ticketing_system/
 
 ⚙️ Installation & Setup
 1. Clone the Repository
-git clone https://github.com/yourusername/ai-ticketing-system.git
+git clone[ https://github.com/yourusername/ai-ticketing-system.git](https://github.com/YeltiAkhilareddy/AIAgents.git)
 cd ai-ticketing-system
 
 2. Create Virtual Environment
